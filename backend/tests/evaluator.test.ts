@@ -116,6 +116,7 @@ describe("request validation", () => {
     condition("product_view", "never", 1),
     condition("product_view", "at_least", -1),
     condition("product_view", "at_least", 1, -1),
+    condition("product_view", "at_least", 1, 0),
   ])("rejects invalid condition %j", (invalid) =>
     expect(audienceSchema.safeParse(definition([invalid])).success).toBe(false),
   );

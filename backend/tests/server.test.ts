@@ -6,15 +6,22 @@ describe("server", () => {
   let server: http.Server;
   let port: number;
 
-  beforeAll((done) => {
-    server = app.listen(0, () => {
-      port = (server.address() as any).port;
-      done();
+  beforeAll(async () => {
+    await new Promise<void>((resolve) => {
+      server = app.listen(0, () => {
+        const addr = server.address();
+        if (addr && typeof addr === "object") {
+          port = addr.port;
+        }
+        resolve();
+      });
     });
   });
 
-  afterAll((done) => {
-    server.close(done);
+  afterAll(async () => {
+    await new Promise<void>((resolve) => {
+      server.close(() => resolve());
+    });
   });
 
   it("health endpoint returns status ok", async () => {

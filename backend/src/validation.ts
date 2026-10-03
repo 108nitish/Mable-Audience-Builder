@@ -10,7 +10,7 @@ export const audienceSchema = z.object({
         eventType: z.enum(EVENT_TYPES),
         operator: z.enum(OPERATORS),
         count: z.number().int().min(0).max(100000),
-        withinDays: z.number().int().min(0).max(3650),
+        withinDays: z.number().int().min(1).max(3650),
       }),
     )
     .min(1)

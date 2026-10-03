@@ -16,7 +16,7 @@ Browser → Nginx frontend proxy → Express backend → SQLite volume. The brow
 
 ## Tests and local development
 
-Run backend tests with `pnpm test`. For local development, run `pnpm install` then `pnpm dev` (frontend on Vite's port and backend on 3000; the Vite proxy can be added for local use). Docker Compose is the canonical complete workflow.
+Run backend tests with `npm test` (or `pnpm test`). For local development without Docker, run `npm install` and `npm run dev`. Docker Compose (`docker compose up --build`) remains the canonical and recommended complete workflow.
 
 ## API
 

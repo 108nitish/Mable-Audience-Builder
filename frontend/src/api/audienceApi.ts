@@ -28,19 +28,40 @@ export type AudienceResult = {
   total: number;
   members: { anonymousId: string; evidence: Evidence[] }[];
 };
+export interface ApiErrorDetail {
+  field: string;
+  message: string;
+}
+
+export class AudienceApiError extends Error {
+  code: string;
+  details?: ApiErrorDetail[];
+
+  constructor(message: string, code = "API_ERROR", details?: ApiErrorDetail[]) {
+    super(message);
+    this.name = "AudienceApiError";
+    this.code = code;
+    this.details = details;
+  }
+}
+
 export async function previewAudience(
   definition: AudienceDefinition,
 ): Promise<AudienceResult> {
-  const response = await fetch("/api/v1/audiences/preview", {
+  const env = (import.meta as unknown as { env?: Record<string, string> }).env;
+  const baseUrl = (env?.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
+  const response = await fetch(`${baseUrl}/v1/audiences/preview`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(definition),
   });
   if (!response.ok) {
     const body = await response.json().catch(() => null);
-    throw new Error(
-      body?.error?.message ?? "Unable to load the audience preview",
-    );
+    const code = body?.error?.code ?? "API_ERROR";
+    const message = body?.error?.message ?? `Request failed with status ${response.status}`;
+    const details = body?.error?.details;
+    throw new AudienceApiError(message, code, details);
   }
   return response.json();
 }
+

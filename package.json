@@ -3,18 +3,11 @@
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "test": "pnpm --dir backend test",
-    "build": "pnpm --dir backend build && pnpm --dir frontend build",
-    "dev": "concurrently \"pnpm --dir backend dev\" \"pnpm --dir frontend dev\""
+    "test": "npm --prefix backend test",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\""
   },
   "devDependencies": {
-    "@types/react": "19.1.16",
-    "@types/react-dom": "19.1.9",
     "concurrently": "^9.1.2"
-  },
-  "dependencies": {
-    "next": "16.3.3",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
   }
 }
