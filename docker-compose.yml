@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_PATH: /data/mable.sqlite
+      NODE_ENV: production
+    volumes:
+      - mable-data:/data
+    networks: [mable-network]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  frontend:
+    build: ./frontend
+    ports: ["8080:80"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [mable-network]
+networks:
+  mable-network:
+    name: mable-network
+    driver: bridge
+volumes:
+  mable-data:
+    name: mable-data

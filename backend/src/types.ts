@@ -1,0 +1,10 @@
+export const EVENT_TYPES = ['page_view', 'product_view', 'add_to_cart', 'checkout_started', 'purchase'] as const
+export const OPERATORS = ['at_least', 'exactly'] as const
+export type EventType = typeof EVENT_TYPES[number]
+export type Operator = typeof OPERATORS[number]
+export type EventRecord = { id: number; anonymousId: string; eventType: EventType; occurredAt: string }
+export type Condition = { eventType: EventType; operator: Operator; count: number; withinDays: number }
+export type AudienceDefinition = { name: string; asOf: string; conditions: Condition[] }
+export type Evidence = { eventType: EventType; observedCount: number; operator: Operator; requestedCount: number }
+export type AudienceMember = { anonymousId: string; evidence: Evidence[] }
+export type AudienceResult = { name: string; asOf: string; total: number; members: AudienceMember[] }
