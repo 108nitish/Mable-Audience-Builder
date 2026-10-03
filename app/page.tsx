@@ -2,14 +2,14 @@ export default function Page() {
   return (
     <main
       style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
+        colorScheme: "light dark",
+        position: "relative",
+        display: "flex",
+        minHeight: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "light-dark(#fff, #000)",
+        color: "light-dark(#000, #fff)",
       }}
     >
       <svg
@@ -30,18 +30,18 @@ export default function Page() {
       </svg>
       <p
         style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
+          position: "absolute",
+          left: "50%",
+          top: "calc(50% + 56px)",
+          transform: "translateX(-50%)",
+          whiteSpace: "nowrap",
+          fontSize: "14px",
           fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
+          color: "light-dark(#71717a, #a1a1aa)",
         }}
       >
         Your v0 generation will show here.
       </p>
     </main>
-  )
+  );
 }
